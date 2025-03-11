@@ -1,14 +1,14 @@
 services:
   mqtt:
     image: eclipse-mosquitto
-    container_name: mqtt-broker
+    container_name: mqtt
     restart: unless-stopped
     ports:
-      - ${MQTT_PORT:-1883}:1883
-    environment:
-      - MQTT_PASSWD=${MQTT_PASSWD}
+      - ${MQTT_PORT1:-1883}:1883
+      - ${MQTT_PORT2:-9001}:9001
     volumes:
-      - ./data/mosquitto:/mosquitto/data
+      - ./data/mqtt:/mosquitto/data
+    command: "mosquitto -c /mosquitto-no-auth.conf"
     networks:
       - net
 
@@ -20,13 +20,12 @@ services:
       - ${ZIGBEE2MQTT_PORT:-8080}:8080
     environment:
       - TZ=${TIMEZONE}
-      - MQTT_PASSWD=${MQTT_PASSWD}
     volumes:
       - ./data/zigbee2mqtt:/app/data
       - /run/udev:/run/udev:ro
-    #devices:
+    devices:
       # SONOFF Zigbee USB Dongle+ V2
-      #- /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20240219204034-if00:/dev/ttyACM0
+      - /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20240219204034-if00:/dev/ttyACM0
     networks:
       - net
     depends_on:
