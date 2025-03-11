@@ -1,0 +1,46 @@
+version: 4
+homeassistant:
+  enabled: true
+  discovery_topic: 'homeassistant'
+  # Optional: Home Assistant status topic (default: shown below)
+  status_topic: 'homeassistant/status'
+frontend:
+  enabled: true
+  # Optional, default 8080
+  port: 8181
+mqtt:
+  # Required: MQTT server URL (use mqtts:// for SSL/TLS connection)
+  server: 'mqtt://mqtt:1883'
+  # Optional: MQTT base topic for Zigbee2MQTT MQTT messages (default: zigbee2mqtt)
+  base_topic: zigbee2mqtt
+  # Optional: absolute path to SSL/TLS certificate of CA used to sign server and client certificates (default: nothing)
+  #ca: '/etc/ssl/mqtt-ca.crt'
+  # Optional: absolute paths to SSL/TLS key and certificate for client-authentication (default: nothing)
+  #key: '/etc/ssl/mqtt-client.key'
+  #cert: '/etc/ssl/mqtt-client.crt'
+  # Optional: MQTT server authentication user (default: nothing)
+  user: admin
+  # Optional: MQTT server authentication password (default: nothing)
+  password: '${MQTT_PASSWD}'
+  # Optional: disable self-signed SSL certificates (default: true)
+  reject_unauthorized: true
+  # Optional: Include device information to mqtt messages (default: false)
+  include_device_information: true
+  # Optional: MQTT keepalive in seconds (default: 60)
+  keepalive: 60
+  # Optional: MQTT protocol version (default: 4), set this to 5 if you
+  # use the 'retention' device specific configuration
+  version: 4
+  # Optional: Disable retain for all send messages. ONLY enable if your MQTT broker doesn't
+  # support retained message (e.g. AWS IoT core, Azure IoT Hub, Google Cloud IoT core, IBM Watson IoT Platform).
+  # Enabling will break the Home Assistant integration. (default: false)
+  force_disable_retain: false
+  # Specifies the maximum allowed packet length (in bytes) that the server can send to Zigbee2MQTT. NOTE: The same value exists in your MQTT broker but for the length the client can send to it instead. (default: 1048576)
+  maximum_packet_size: 1048576
+#serial:
+    # Location of the adapter
+    # USB adapters - use format "port: /dev/serial/by-id/XXX"
+    # Ethernet adapters - use format "port: tcp://192.168.1.12:6638"
+    #port: /dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20240219204034-if00
+    # Adapter type, allowed values: `zstack`, `ember`, `deconz`, `zigate` or `zboss`
+    #adapter: ember
