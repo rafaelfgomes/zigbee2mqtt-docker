@@ -23,7 +23,7 @@ services:
     environment:
       - TZ=${TIMEZONE}
     volumes:
-      - ${ZIGBEE_2_MQTT_DATA:-./zigbee2mqtt-data}:/app/data
+      - ${ZIGBEE_2_MQTT_DATA_FOLDER:-./zigbee2mqtt-data}:/app/data
       - /run/udev:/run/udev:ro
     devices:
       # SONOFF Zigbee USB Dongle+ V2
